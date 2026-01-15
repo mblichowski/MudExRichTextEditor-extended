@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.Extensions.Logging
 @using MudBlazor.Extensions.Helper
 @using MudExRichTextEditor.Types
 @inherits MudBlazor.Extensions.Components.Base.MudExJsRequiredBaseFormComponent<MudExRichTextEdit, string, string>
 @inject IJSRuntime JsRuntime
-
+@inject ILogger<MudExRichTextEdit> _logger
 
 
 @if (_sourceLoaded)
