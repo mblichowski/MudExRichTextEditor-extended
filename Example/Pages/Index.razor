@@ -68,8 +68,8 @@
             .Select(i => new CustomTool(
                 onClick: (tool, editor) => editor.InsertHtmlAsync($"[Custom Tool {i} clicked]"),
                 icon: null,
-                tooltip: null,
-				text: i.ToString())))
+                tooltip: $"Custom Tool {i} tooltip",
+                text: $"Custom Tool {i}")))
             .ToArray();
 
         base.OnInitialized();
