@@ -76,7 +76,7 @@ else
                 {
                     if (tool is CustomTool custom)
                     {
-                        <QuillToolButton Color="@(custom.Color(custom, this))" OnClick="@(() => custom.OnClick(custom, this))" Icon="@(custom.Icon(custom, this))" Tooltip="@TryLocalize(custom.Tooltip(custom, this))"></QuillToolButton>
+                        <QuillToolButton Color="@(custom.Color(custom, this))" OnClick="@(() => custom.OnClick(custom, this))" Icon="@(custom.Icon(custom, this))" Tooltip="@TryLocalize(custom.Tooltip(custom, this))" Text=@(custom.Text(custom, this))></QuillToolButton>
                     }
                     else
                     {
