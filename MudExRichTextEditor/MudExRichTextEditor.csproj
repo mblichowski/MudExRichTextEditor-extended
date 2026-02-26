@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorJS" Version="2.2.0" />    
-    <PackageReference Include="MudBlazor.Extensions" Version="8.14.2" />
+    <PackageReference Include="MudBlazor.Extensions" Version="9.0.0-prev-260113138-mudblazor9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,17 +46,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\quill\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\js\components\MudExRichTextEdit.js" />
-    <Content Include="wwwroot\js\components\MudExRichTextEdit.min.js" />
-    <Content Include="wwwroot\modules\quill-better-table.min.js" />
-    <Content Include="wwwroot\modules\quill-blot-formatter.min.js" />
-    <Content Include="wwwroot\modules\quill.imageCompressor.min.js" />
-    <Content Include="wwwroot\modules\quill.mention.min.js" />
-    <Content Include="wwwroot\css\quill.mention.css" />
-    <Content Include="wwwroot\css\quill.better.table.css" />
   </ItemGroup>
 
 </Project>
