@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
-    <Authors>Florian Gilde</Authors>
+    <Authors>Florian Gilde, extensions by mblichowski</Authors>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/fgilde/MudExRichTextEditor</RepositoryUrl>
     <PackageProjectUrl>https://github.com/fgilde/MudExRichTextEditor</PackageProjectUrl>
