@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.Extensions.Logging
 @using MudBlazor.Extensions.Helper
 @using MudExRichTextEditor.Types
 @inherits MudBlazor.Extensions.Components.Base.MudExJsRequiredBaseFormComponent<MudExRichTextEdit, string, string>
 @inject IJSRuntime JsRuntime
-
+@inject ILogger<MudExRichTextEdit> _logger
 
 
 @if (_sourceLoaded)
@@ -76,7 +77,7 @@ else
                 {
                     if (tool is CustomTool custom)
                     {
-                        <QuillToolButton Color="@(custom.Color(custom, this))" OnClick="@(() => custom.OnClick(custom, this))" Icon="@(custom.Icon(custom, this))" Tooltip="@TryLocalize(custom.Tooltip(custom, this))"></QuillToolButton>
+                        <QuillToolButton Color="@(custom.Color(custom, this))" OnClick="@(() => custom.OnClick(custom, this))" Icon="@(custom.Icon(custom, this))" Tooltip="@TryLocalize(custom.Tooltip(custom, this))" Text=@(custom.Text(custom, this))></QuillToolButton>
                     }
                     else
                     {

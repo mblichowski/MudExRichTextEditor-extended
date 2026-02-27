@@ -1,6 +1,7 @@
 ﻿using BlazorJS;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using MudBlazor;
 using MudBlazor.Extensions;
@@ -67,6 +68,8 @@ public partial class MudExRichTextEdit
 	/// </summary>
 	[Parameter] public bool Immediate { get; set; }
 
+	[Parameter] public int InitializationDelaySeconds { get; set; } = 10;
+
 	[Parameter] public bool HideToolbarWhenReadOnly { get; set; } = true;
 	[Parameter] public MudExSize<double>? Height { get; set; }
 	[Parameter] public RenderFragment ToolbarContent { get; set; }
@@ -119,7 +122,7 @@ public partial class MudExRichTextEdit
 	[Parameter]
 	public bool Initialized { get; set; }
 
-	[Parameter] 
+	[Parameter]
 	public EventCallback<bool> InitializedChanged { get; set; }
 
 	public IEnumerable<IQuillModule> AllModules => (Modules ?? Enumerable.Empty<IQuillModule>()).Concat(AlwaysUseRecommendedModules ? QuillModules.RecommendedModules : []).DistinctBy(m => m.GetType());
@@ -158,14 +161,14 @@ public partial class MudExRichTextEdit
 		// Wait for initialization to complete before attempting to set HTML
 		if (!Initialized)
 		{
-			// Wait for up to 10 seconds for initialization to complete
-			var timeoutTask = Task.Delay(TimeSpan.FromSeconds(10));
+			// Wait for initialization to complete
+			var timeoutTask = Task.Delay(TimeSpan.FromSeconds(InitializationDelaySeconds));
 			var completedTask = await Task.WhenAny(_initializationTcs.Task, timeoutTask);
 
 			if (completedTask == timeoutTask)
 			{
 				// Initialization timed out, but still attempt to set HTML in case it works
-				System.Diagnostics.Debug.WriteLine("MudExRichTextEdit: SetHtml called before initialization completed. Attempting anyway.");
+				_logger.LogWarning("MudExRichTextEdit: SetHtml called before initialization completed. Attempting anyway.");
 			}
 		}
 

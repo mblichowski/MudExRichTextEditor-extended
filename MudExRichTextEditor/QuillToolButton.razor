@@ -1,13 +1,29 @@
 ﻿@using MudBlazor.Extensions.Core
 
-<MudTooltip RootStyle="height: 15px; width: 20px;" Text="@Tooltip">
-    <button type="button" onclick="@OnClick"><MudIcon Color="@Color" Icon="@Icon"></MudIcon></button>    
-</MudTooltip>
+@if (!string.IsNullOrEmpty(Icon))
+{
+    <MudTooltip RootStyle="height: 15px; width: 20px;" Text="@Tooltip">
+        <button type="button" onclick="@OnClick">
+            <MudIcon Color="@Color" Icon="@Icon"></MudIcon>
+        </button>
+    </MudTooltip>
+}
+
+@if (!string.IsNullOrEmpty(Text))
+{
+    <MudTooltip Text="@Tooltip">
+        <button type="button" onclick="@OnClick" style="width: auto !important;">
+            <strong>@Text</strong>
+        </button>
+    </MudTooltip>
+}
 
 @code {
-
     [Parameter]
     public string Icon { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
 
     [Parameter]
     public Color Color { get; set; } = Color.Inherit;

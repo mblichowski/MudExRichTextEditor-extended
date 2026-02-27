@@ -26,7 +26,8 @@
                        Class="m-2"
                        ValueHtmlBehavior="@_bindingMode"
                        @bind-Value="@_value"
-                       Placeholder="@_placeholder">
+                       Placeholder="@_placeholder" 
+                       Tools=_tools>
 
     </MudExRichTextEdit>
 
@@ -40,6 +41,7 @@
     <textarea class="m-2" style="width: 95%; height: 400px;" readonly="readonly">@_value</textarea>
 </MudPaper>
 @code {
+    [Inject] private IJSRuntime _js { get; set; }
 
     private MudExRichTextEdit _editor;
     private string _placeholder = "Write HTML content. Use @ for User mentions and # for Tag mentions";
@@ -48,7 +50,7 @@
     private bool _updateValueOnChange;
     private string _value = "";
     private IQuillModule[] _modules;
-    [Inject] private IJSRuntime _js { get; set; }
+    private QuillTool[] _tools = [];
 
     protected override void OnInitialized()
     {
@@ -60,6 +62,16 @@
             new QuillMentionModule<User>((c, s) => Task.FromResult(_users.Where(user => user.FullName.Contains(s, StringComparison.InvariantCultureIgnoreCase))), '@', '$').SetProperties(m => m.MentionClicked = UserMentionClicked, m => m.AfterMentionSelect = AfterUserMentionSelect),
             new QuillMentionModule<Tag>((c, s) => Task.FromResult(_tags.Where(tag => tag.Name.Contains(s, StringComparison.InvariantCultureIgnoreCase))), '#').SetProperties(m => m.MentionClicked = TagMentionClicked)
         ];
+
+        _tools = QuillTool.All().Concat(
+            Enumerable.Range(1, 5)
+            .Select(i => new CustomTool(
+                onClick: (tool, editor) => editor.InsertHtmlAsync($"[Custom Tool {i} clicked]"),
+                icon: null,
+                tooltip: $"Custom Tool {i} tooltip",
+                text: $"Custom Tool {i}")))
+            .ToArray();
+
         base.OnInitialized();
     }
 
